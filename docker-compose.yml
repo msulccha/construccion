@@ -1,0 +1,50 @@
+services:
+  sonarqube:
+    image: sonarqube:latest
+    container_name: sonarqube2
+    ports:
+      - "9000:9000"
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonarqube
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+    depends_on:
+      - db
+    networks:
+      - sonar-network
+
+  db:
+    image: postgres:13
+    container_name: sonarqube_db2
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+      POSTGRES_DB: sonarqube
+    volumes:
+      - sonarqube_db_data:/var/lib/postgresql/data
+    networks:
+      - sonar-network
+
+  scanner:
+    build:
+      context: .
+      dockerfile: Dockerfile.scanner
+    container_name: sonar_scanner2
+    depends_on:
+      - sonarqube
+    volumes:
+      - .:/usr/src
+    working_dir: /usr/src
+    environment:
+      - SONAR_HOST_URL=http://sonarqube:9000
+      - SONAR_SCANNER_OPTS=-Dsonar.projectKey=laravel_ventas -Dsonar.sources=src/app -Dsonar.login=${SONAR_TOKEN}
+    command: >
+      sh -c "sleep 30 && sonar-scanner"
+    networks:
+      - sonar-network
+
+volumes:
+  sonarqube_db_data:
+
+networks:
+  sonar-network:
