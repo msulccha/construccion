@@ -69,17 +69,17 @@ class ProductComponent extends Component
 
     // Crear producto
     public function store(){
-        //  dump('Crear producto');
-
+        // dump('Crear producto');
+        const NUMERIC_NULLABLE = 'numeric|nullable';
         $rules = [
-            'name' => 'required|min:5|max:255|unique:products',
-            'descripcion' => 'max:255',
-            'precio_compra' => 'numeric|nullable',
-            'precio_venta' => 'required|numeric',
-            'stock' => 'required|numeric',
-            'stock_minimo' => 'numeric|nullable',
-            'image' => 'image|max:1024|nullable',
-            'category_id' => 'required|numeric',
+            'name'          => 'required|min:5|max:255|unique:products',
+            'descripcion'   => 'max:255',
+            'precio_compra' => self::NUMERIC_NULLABLEE,
+            'precio_venta'  => 'required|numeric',
+            'stock'         => 'required|numeric',
+            'stock_minimo'  => self::NUMERIC_NULLABLE,
+            'image'         => 'image|max:1024|nullable',
+            'category_id'   => 'required|numeric',
         ];
 
 
@@ -136,16 +136,19 @@ class ProductComponent extends Component
 
     public function update(Product $product){
         // dump($category);
+        const NUMERIC_NULLABLE = 'numeric|nullable';
         $rules = [
-            'name' => 'required|min:5|max:255|unique:products,id,'.$this->Id,
-            'descripcion' => 'max:255',
-            'precio_compra' => 'numeric|nullable',
-            'precio_venta' => 'required|numeric',
-            'stock' => 'required|numeric',
-            'stock_minimo' => 'numeric|nullable',
-            'image' => 'image|max:1024|nullable',
-            'category_id' => 'required|numeric',
+            'name'          => 'required|min:5|max:255|unique:products,id,'.$this->Id,
+            'descripcion'   => 'max:255',
+            'precio_compra' => self::NUMERIC_NULLABLE,
+            'precio_venta'  => 'required|numeric',
+            'stock'         => 'required|numeric',
+            'stock_minimo'  => self::NUMERIC_NULLABLE,
+            'image'         => 'image|max:1024|nullable',
+            'category_id'   => 'required|numeric',
         ];
+    }
+
 
 
         $this->validate($rules);
