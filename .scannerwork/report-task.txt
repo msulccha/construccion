@@ -1,0 +1,6 @@
+projectKey=construccion_software
+serverUrl=http://sonarqube:9000
+serverVersion=25.5.0.107428
+dashboardUrl=http://sonarqube:9000/dashboard?id=construccion_software
+ceTaskId=1890e142-d365-4e0a-a6b2-0b4720753f4d
+ceTaskUrl=http://sonarqube:9000/api/ce/task?id=1890e142-d365-4e0a-a6b2-0b4720753f4d
